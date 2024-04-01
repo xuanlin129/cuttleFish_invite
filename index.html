@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>有你的信</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #ccc;
+    }
+
+    img {
+      width: auto;
+      height: 100%;
+      background: #eee;
+      padding: 3px;
+    }
+
+    .wrap {
+      margin: auto;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .mail {
+      width: 300px;
+      height: 200px;
+      border: 1px solid #fff;
+      background: #fff;
+      border-radius: 1rem;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .card {
+      width: 90%;
+      height: 90%;
+      background: #8f8982;
+      color: #fff;
+      padding: 15px;
+      border-radius: 0.5rem;
+      transition: all 1s;
+      box-shadow: 0 0 5px #333;
+      z-index: 2;
+      display: flex;
+      gap: 5px;
+      align-items: center;
+    }
+
+    .cardAnim {
+      animation: cardAnim 2s ease 1s 1;
+    }
+
+    .topLeft,
+    .topRight {
+      width: 51%;
+      height: 60%;
+      position: absolute;
+      top: 0;
+      z-index: 5;
+      transition: all 0.8s;
+      transform-origin: top;
+    }
+
+    .topLeft {
+      background: linear-gradient(30deg, transparent 44%, #eee 45%, #fff 45%);
+      left: 0;
+      border-radius: 1rem 0 1rem 0;
+    }
+
+    .topRight {
+      background: linear-gradient(-30deg, transparent 44%, #eee 45%, #fff 45%);
+      right: 0;
+      border-radius: 0 1rem 0 1rem;
+    }
+
+    .mail:hover .topLeft,
+    .mail:hover .topRight {
+      transform: rotateX(50deg) skewX(-10deg)
+    }
+
+    .bottomLeft,
+    .bottomRight {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      border-radius: 1rem;
+      z-index: 3;
+    }
+
+    .bottomLeft {
+      background: linear-gradient(30deg, #fff 50%, transparent 50%);
+      left: 0;
+      filter: drop-shadow(0 0 1px #ccc);
+      z-index: 4;
+    }
+
+    .bottomRight {
+      background: linear-gradient(-30deg, #fff 50%, transparent 50%);
+      right: 0;
+    }
+
+    @keyframes mailAnim {
+      0% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: translateY(20%)
+      }
+
+      100% {
+        transform: scale(0.8) translate(-10%, 20%) rotate(-10deg);
+      }
+    }
+
+    @keyframes cardAnim {
+      0% {
+        transform: translateY(0%)
+      }
+
+      50% {
+        transform: translateY(-100%);
+      }
+
+      55% {
+        z-index: 1;
+      }
+
+      100% {
+        transform: scale(1.2) translate(10%, 0%) rotate(10deg);
+        z-index: 999;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="mail">
+      <div class="card">
+        <img src="./images/cuttleFish.jpg" alt="">
+        <p>4/14 有人要去台中信兵衛嗎?</p>
+      </div>
+      <div class="top topLeft"></div>
+      <div class="top topRight"></div>
+      <div class="bottomLeft"></div>
+      <div class="bottomRight"></div>
+    </div>
+  </div>
+
+  <script>
+    const mail = document.querySelector('.mail')
+    const card = document.querySelector('.card')
+    const tops = document.querySelectorAll('.top')
+
+    mail.addEventListener('click', () => {
+      mail.style.animation = 'mailAnim 2s ease 1s 1'
+      card.classList.add('cardAnim')
+      setTimeout(() => {
+        mail.style.transform = 'scale(0.8) translate(-10%, 20%) rotate(-10deg)'
+        card.style.transform = 'scale(1.2) translate(10%, 0%) rotate(10deg)'
+        card.style.zIndex = '999'
+      }, 3000)
+
+      for (const top of tops) {
+        top.style.transform = 'rotateX(180deg) skewX(0deg)'
+        top.style.zIndex = '0'
+      }
+    })
+  </script>
+</body>
+
+</html>
